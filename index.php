@@ -2,31 +2,41 @@
 function valido(){
 
   $arquivo = file_get_contents("senhas.txt");
-  $valor = explode ("|", $arquivo);
-  $USER = substr($valor[0], 5);
-  $PASS = substr($valor[1], 5);
 
-    if($_POST['username'] == $USER and $_POST['password'] == $PASS){
+  $valores = explode ("|", $arquivo);
+
+  $USER = substr($valores[0], 5);
+
+  $PASS = substr($valores[1], 5);
+
+
+    if($_POST['username'] == $USER and $_POST['password'] == $PASS)
+    {
         $_SESSION["username"] = $USER;
+        
         return TRUE;
 
-    }
-    return FALSE;
+}
+    
+  return FALSE;
 
 }
 
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    session_start();
-    if(valido()){
+session_start();
+
+    if(valido())
+{
         $_SESSION['loggedin'] = TRUE;
 
          header("location: welcome.php");
-    } else {
+} else
+{
         $_SESSION["username"] = "";
         $_SESSION['loggedin'] = FALSE;
-    }
+}
 }
 ?>
 
